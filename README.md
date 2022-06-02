@@ -93,10 +93,10 @@ You should see it build, push the image, then create the release:
 ```
 ==> Monitoring deployment
  1 desired, 1 placed, 1 healthy, 0 unhealthy
---> v7 deployed successfully
+--> v1 deployed successfully
 ```
 
-Conform the app is running with `fly status`. Now try connecting to it using your FTP client. Initially you can use `your-app-name.fly.dev` as the hostname, the port 21, and a username and password from your `USERS` value. You will need to use plain FTP and so there may be a warning about security.
+Conform the app is running with `fly status`. Now try connecting to it using your FTP client. Use `your-app-name.fly.dev` as the hostname, 21 as the port, and one of the username/password from your secret `USERS` value. You will need to use plain FTP and so there _may_ be a warning about security.
 
 ## Debugging
 
@@ -106,11 +106,10 @@ Assuming your app successfully deployed, try running `fly ssh console` to connec
 
 ```
 ps -a | grep vsftpd
-523 root      0:00 /sbin/tini -- /bin/start_vsftpd.sh
 528 root      0:00 pidproxy /var/run/vsftpd/vsftpd.pid true
 550 root      0:00 vsftpd -opasv_min_port=21000 -opasv_max_port=21005 /etc/vsftpd/vsftpd.conf
 722 root      0:00 grep vsftpd
 ```
 
-You can also check files are uploaded by users into the `/data` folder. Run `cd data` and you should see the folders for your users there e.g `/data/example`. Check the folder's owner matches the one you set in your `USERS` secret. If not, that would explain if a particular user can't connect.
+From there you can also check files uploaded by users (into the `/data` folder). Run `cd data` and you should see the folders for your users e.g `/data/username`. Check the folder's owner matches the one _you_ set in your `USERS` secret. If not, that would explain if a particular user can't connect. And look inside the folder to see the files are present and valid.
 

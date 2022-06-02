@@ -72,8 +72,8 @@ fly secrets set USERS="example|example|/data/example"
 ... but of course your command should use a better name and a more secure password. Each user should be separated by a space. For example these examples create _two_ users:
 
 ```
-#USERS="username|password|/data/username foo|bar|/data/foo"
-#USERS="username|password|/data/username|5000 foo|bar|/data/foo|5001"
+USERS="username|password|/data/username foo|bar|/data/foo"
+USERS="username|password|/data/username|5000 foo|bar|/data/foo|5001"
 ```
 
 Run that and you should then see:

@@ -1,0 +1,73 @@
+app = "fly-ftp-server"
+
+kill_signal = "SIGINT"
+kill_timeout = 5
+
+[env]
+# fix zomble reaping:
+TINI_SUBREAPER = true
+# passive ports matching the first and last of those below, in [services]:
+MIN_PORT = 21000
+MAX_PORT = 21005
+
+[experimental]
+allowed_public_ports = []
+auto_rollback = true
+
+# if you call your volume something else, update this part to match:
+[mounts]
+destination = "/data"
+source = "ftp_data"
+
+[[services]]
+internal_port = 21
+protocol = "tcp"
+
+[[services.ports]]
+port = 21
+
+[[services.tcp_checks]]
+interval = 5000
+timeout = 2000
+
+[[services]]
+internal_port = 21000
+protocol = "tcp"
+
+[[services.ports]]
+port = 21000
+
+[[services]]
+internal_port = 21001
+protocol = "tcp"
+
+[[services.ports]]
+port = 21001
+
+[[services]]
+internal_port = 21002
+protocol = "tcp"
+
+[[services.ports]]
+port = 21002
+
+[[services]]
+internal_port = 21003
+protocol = "tcp"
+
+[[services.ports]]
+port = 21003
+
+[[services]]
+internal_port = 21004
+protocol = "tcp"
+
+[[services.ports]]
+port = 21004
+
+[[services]]
+internal_port = 21005
+protocol = "tcp"
+
+[[services.ports]]
+port = 21005

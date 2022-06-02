@@ -1,6 +1,6 @@
 # fly-ftp-server
 
-A simple FTP server for [Fly.io](https://fly.io) (based on [alpine-ftp-server](https://hub.docker.com/r/delfer/alpine-ftp-server)) using [vsftpd] _very secure FTP daemon_.
+A simple FTP server for [Fly.io](https://fly.io) (based on [alpine-ftp-server](https://hub.docker.com/r/delfer/alpine-ftp-server)) using `vsftpd` _very secure FTP daemon_.
 
 ## Customise
 

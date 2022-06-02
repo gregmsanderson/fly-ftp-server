@@ -69,14 +69,14 @@ The `USERS` value must be a space-separated list of users. Each user _must_ have
 fly secrets set USERS="example|example|/data/example"
 ```
 
-... but of course your command should use a better name and a more secure password. Each user should be separated by a space. Some examples of the structure:
+... but of course your command should use a better name and a more secure password. Each user should be separated by a space. For example these examples create _two_ users:
 
-#USERS="user|password foo|bar|/home/foo"
-#USERS="user|password|/home/user/dir|10000"
-#USERS="user|password||10000"
+```
+#USERS="username|password|/data/username foo|bar|/data/foo"
+#USERS="username|password|/data/username|5000 foo|bar|/data/foo|5001"
 ```
 
-You should then see:
+Run that and you should then see:
 
 ```
 Secrets are staged for the first deployment

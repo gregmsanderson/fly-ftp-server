@@ -27,8 +27,8 @@ protocol = "tcp"
 port = 21
 
 [[services.tcp_checks]]
-interval = 5000
-timeout = 2000
+interval = "5s"
+timeout = "2s"
 
 [[services]]
 internal_port = 21000

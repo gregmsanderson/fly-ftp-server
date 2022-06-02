@@ -10,7 +10,7 @@ Edit the `name` in the `fly.toml` to one of your choice:
 app = "fly-ftp-server"
 ```
 
-If you would like to use passive connections, you may need to edit the `[env]` block in the `fly.toml` to specify the port range:
+The `[env]` block in the `fly.toml` contains the port range for passive connections:
 
 ```toml
 [env]
@@ -18,9 +18,9 @@ MIN_PORT = 21000
 MAX_PORT = 21005
 ```
 
-If you change them, the `MIN_PORT` and `MAX_PORT` must match up with the ports later on in the `fly.toml`, in the `[services] section. Unfortunately Fly [does](https://fly.io/docs/reference/configuration/) [not](https://community.fly.io/t/define-port-range-for-service/1938/2?u=greg) appear to currently support providing a port _range_ for TCP. So you need to provide them individually. Which makes providing a large number harder, but possible.
+If you change them, that `MIN_PORT` and `MAX_PORT` must match up with the ports in the `fly.toml` file's `[services]` section. Unfortunately Fly [does](https://fly.io/docs/reference/configuration/) [not](https://community.fly.io/t/define-port-range-for-service/1938/2?u=greg) currently support providing a port range for TCP. So you need to provide them individually. Which makes providing a large number of ports harder, but possible.
 
-You may also want to adjust the FTP options. Take a look at the `conf/vsftpd.conf` file, adjusting it to your needs. We have generally used default values, but made some changes better suited for Fly, such as using IPv6.
+You may also want to adjust the FTP options. Take a look at the `conf/vsftpd.conf` file, adjusting that to your needs. We have generally used default values but made some changes better suited for Fly, such as using IPv6.
 
 ## Deploy
 

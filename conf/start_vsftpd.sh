@@ -12,10 +12,9 @@ grep '/ftp/' /etc/passwd | cut -d':' -f1 | xargs -r -n1 deluser
 #OR
 # user|password||10000
 
-#Default user 'ftp' with password 'alpineftp'
-
+#Default user only, other users are added through fly secrets!
 if [ -z "$USERS" ]; then
-  USERS="alpineftp|alpineftp"
+  USERS="admin|admin"
 fi
 
 echo "Set up user(s)"

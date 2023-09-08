@@ -6,9 +6,13 @@ kill_signal = "SIGINT"
 kill_timeout = 5
 
 [env]
+  # passive ports matching the first and last of those below, in [services]:
   MAX_PORT = 21005
   MIN_PORT = 21000
+  # fix zomble reaping:
   TINI_SUBREAPER = true
+  # (optional) uncomment the next line and put your Fly app's IPv4, got from running fly info:
+  #ADDRESS = '1.2.3.4'
 
 [experimental]
   allowed_public_ports = []

@@ -20,7 +20,12 @@ MAX_PORT = 21005
 
 If you change them, that `MIN_PORT` and `MAX_PORT` must match up with the ports in the `fly.toml` file's `[services]` section. Unfortunately Fly [does](https://fly.io/docs/reference/configuration/) [not](https://community.fly.io/t/define-port-range-for-service/1938/2?u=greg) currently support providing a port range for TCP. So you need to provide them individually. Which makes providing a large number of ports harder, but possible.
 
-You may also want to adjust the FTP options. Take a look at the `conf/vsftpd.conf` file, adjusting that to your needs. We have generally used default values but made some changes better suited for Fly, such as using IPv6.
+The `[env]` block also has an `ADDRESS` value. Run `fly info` to get _your_ app's IPv4:
+```toml
+ADDRESS = '1.2.3.4'
+```
+
+You may also want to adjust the FTP options. Take a look at the `conf/vsftpd.conf` file, adjusting that to your needs. We have generally used default values.
 
 ## Deploy
 
@@ -100,9 +105,14 @@ Conform the app is running with `fly status`. Now try connecting to it using you
 
 ## Debugging
 
-Use `fly logs` to see what is output.
+Use `fly logs` to see what is output and look for any errors. If you have left our default TCP healthcheck in the `fly.toml`, you should see _its_ connections roughly every five seconds:
 
-Assuming your app successfully deployed, try running `fly ssh console` to connect to a vm. Once there you can check `vsftpd` is running e.g:
+```
+2022-06-08T16:02:09Z app[abcdefg] lhr [info]Wed Jun  8 16:02:09 2022 [pid 2] CONNECT: Client "1.2.3.4"
+2022-06-08T16:02:14Z app[abcdefg] lhr [info]Wed Jun  8 16:02:14 2022 [pid 2] CONNECT: Client "1.2.3.4"
+```
+
+Try running `fly ssh console` to connect to a vm. Once there you can check `vsftpd` is running e.g:
 
 ```
 ps -a | grep vsftpd
@@ -112,4 +122,6 @@ ps -a | grep vsftpd
 ```
 
 From there you can also check files uploaded by users (into the `/data` folder). Run `cd data` and you should see the folders for your users e.g `/data/username`. Check the folder's owner matches the one _you_ set in your `USERS` secret. If not, that would explain if a particular user can't connect. And look inside the folder to see the files are present and valid.
+
+This basic FTP server does not use FTPS. In _theory_ you should be able to modify it to use Fly's provided TLS handler or provide your own certificate.
 
